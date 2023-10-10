@@ -1,0 +1,410 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'CUSports Fulfillment'
+  description: CUSports Shipping and Fulfillment Service API
+
+paths:
+  /orders:
+    parameters:
+
+    get:
+      summary: Returns all orders in the system
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                $ref:
+        404:
+          description: 
+          content:
+            application/json:
+              schema:
+                $ref:
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{orderId}:
+    parameters:
+      - name: orderId
+        description: The unique identifier of the order
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/orderId'
+    get:
+      summary: Return order
+      responses:
+        '200':
+          description: The order corresponding to the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orders'
+        404:
+          description: No order found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Change order
+      responses:
+        '200':
+          description: The order at 'orderId' has been changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orders'
+        404:
+          description: No order found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Deletes order
+      responses:
+        '200':
+          description: The order corresponding to the provided `orderId` has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orders'
+        404:
+          description: No order found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /orders/{orderId}/account:
+    parameters:
+      - name: account
+        description: The unique identifier of the account
+        in: path
+        required: false
+        schema:
+          $ref: '#/components/schemas/account'
+    get:
+      summary: Return account
+      responses:
+        '200':
+          description: The account corresponding to the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+        404:
+          description: No account found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /orders/{orderId}/items:
+    parameters:
+      - name: items
+        description: The items corresponding to the order
+        in: path
+        required: false
+        schema:
+          $ref: '#/components/schemas/adress'
+    put:
+      summary: Change adress
+      responses:
+        '200':
+          description: The adress corresponding to the provided `orderId` has been changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/adress'
+        404:
+          description: No order found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /orders/{orderId}/status:
+    parameters:
+      - name: status
+        description: The shipping status of the order
+        in: path
+        required: false
+        schema:
+          $ref: '#/components/schemas/status'
+    put:
+      summary: Return account
+      responses:
+        '200':
+          description: The account corresponding to the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+        404:
+          description: No account found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /orders/{orderId}/arrival:
+    parameters:
+      - name: arrival
+        description: The arrival date of the order
+        in: path
+        required: false
+        schema:
+          $ref: '#/components/schemas/arrival'
+    put:
+      summary: Return account
+      responses:
+        '200':
+          description: The arrival date to the provided `orderId` has been changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrival'
+        404:
+          description: No arrival date for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /orders/{orderId}/shipping:
+    parameters:
+      - name: shipping
+        description: The shipping details of the given orderId
+        in: path
+        required: false
+        schema:
+          $ref: '#/components/schemas/shipping'
+    get:
+      summary: Return shipping details
+      responses:
+        '200':
+          description: The shipping details corresponding to the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shipping'
+        404:
+          description: No shipping found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /orders/{orderId}/address:
+    parameters:
+      - name: address
+        description: The adress the order is shipped to
+        in: path
+        required: false
+        schema:
+          $ref: '#/components/schemas/account'
+    get:
+      summary: Return account
+      responses:
+        '200':
+          description: The account corresponding to the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+        404:
+          description: No account found for the provided `orderId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /items/{itemId}:
+    parameters:
+      - name: itemId
+        description: The unique identifier of the item
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/itemId'
+    put:
+      summary: Change item
+      responses:
+        '200':
+          description: The item at 'itemId' has been changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/items'
+        404:
+          description: No item found for the provided `itemId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Deletes item
+      responses:
+        '200':
+          description: The item corresponding to the provided `itemId` has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/items'
+        404:
+          description: No item found for the provided `itemId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      
+
+components:
+  schemas:
+    orderId:
+      description: The unique identifier of an order
+      type: string
+    Order:
+      type: object
+      required:
+        - id
+        - account
+        - shipping
+        - address
+        - contents
+        - price
+        - priority
+        - arrival date
+        - status
+      properties:
+        id:
+          $ref: '#/components/schemas/orderId'
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - id
+            - account
+            - shipping
+            - address
+            - contents
+            - price
+            - priority
+            - arrival date
+            - status
+        description:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+    
+    itemId:
+      description: The unique identifier of an item
+      type: string
+    Item:
+      type: object
+      required:
+        - id
+        - quantity
+        - stock
+      properties:
+        id:
+          $ref: '#/components/schemas/itemId'
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - id
+            - quantity
+            - stock
+        description:
+          type: string
+    
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+security:
+  - ApiKey: []
